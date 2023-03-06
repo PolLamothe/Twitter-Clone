@@ -1,0 +1,172 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<div style="position: relative;" id=<?php echo $id.$pseudo; ?>>
+    <input type="hidden" value="<?php echo $id; ?>" id="id">
+    <div style="display: flex;position: relative;">
+        <img src=<?php if($profilePicture == ""){echo "./data/image/profile_Picture/default.webp";}else{echo $profilePicture;} ?> id='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $pseudo ?>">
+        <p id="user"><?php echo $pseudo;?></p>
+        <p id="creationDate"><?php echo $creationDate; ?></p>
+    </div>
+    <p id="message"><?php echo $message;?></p>
+    <img <?php if($object != ""){echo "src=".$object;}?> id="object">
+    <img src="../data/svg/more.svg" id='more<?php echo $id.$pseudo; ?>'style="filter: invert(100%);opacity: 40%;">
+    <div id="command<?php echo $id.$pseudo; ?>" style="display:none;">
+        <?php if($pseudo == $_SESSION['Pseudo']){echo '<button style="color: red;border-radius: 20px;" id=delete'.$id.$pseudo.'>Supprimer</button>';} ?>
+        <button style="border-top-left-radius: 14px;border-top-right-radius: 14px;<?php if($isFollowing || $_SESSION['Pseudo'] == $pseudo){echo 'display:none;';}?>" id=follow<?php echo $id.$pseudo ?>>Suivre <?php echo $pseudo; ?></button>
+        <button style="color: red;border-top-left-radius: 14px;border-top-right-radius: 14px;<?php if(!$isFollowing){echo 'display:none;';}?>" id=unfollow<?php echo $id.$pseudo ?>>Ne plus suivre <?php echo $pseudo; ?></button>
+        <button style="color: red;border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if($pseudo == $_SESSION['Pseudo']){echo 'display:none;';}?>" id=block<?php echo $id.$pseudo ?>>Bloquer <?php echo $pseudo; ?></button>
+    </div>
+    <div class="hr"></div>
+</div>  
+<div id="debug"></div>
+  
+<style>
+    .hr{
+        background-color: rgb(97, 97, 97);
+        width: 100vw;
+        height: 1px;
+    }
+    p{
+        color: white;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    #creationDate{
+        color: grey;
+        margin-left: 1vw;
+    }
+    #user{
+        position: relative;
+        font-weight: bold;
+        margin-left: 0.5vw;
+    }
+    #profilePicture{
+        border-radius: 50%;
+        width: 3.5vw;
+        aspect-ratio: 1/1;
+        margin-left: 1vw;
+        grid-column: 1;
+        grid-row: 1;
+        object-fit: cover;
+        margin-top: 2vh;
+    }
+    #message{
+        margin-left: 5vw;   
+    }
+    #object{
+        width: 30vw;
+        aspect-ratio: initial;
+        border-radius: 20px;
+        margin-left: 6vw;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+    }
+    #more<?php echo $id.$pseudo;?>{
+        width: 1.5vw;
+        aspect-ratio: initial;
+        position: absolute;
+        right: 1vw;
+        top: 2vh;
+    }
+    #more<?php echo $id.$pseudo; ?>:hover{
+        background-color: grey;
+        border-radius: 50%;
+    }
+    #command<?php echo $id.$pseudo; ?>{
+        position: absolute;
+        right: 1vw;
+        top: 2vh;
+        width: 25vw;
+        background-color: black;
+        -moz-box-shadow: 0 0 3px #ccc;
+        -webkit-box-shadow: 0 0 3px #ccc;
+        box-shadow: 0 0 3px #ccc;
+        border-radius: 20px;
+    }
+    #delete<?php echo $id.$pseudo; ?>:hover{
+        background-color: #202020;
+    }
+    #follow<?php echo $id.$pseudo ?>:hover{
+        background-color: #202020;
+    }
+    #unfollow<?php echo $id.$pseudo ?>:hover{
+        background-color: #202020;
+    }
+    #block<?php echo $id.$pseudo ?>:hover{
+        background-color: #202020;
+    }
+    #command<?php echo $id.$pseudo; ?> button{
+        width: 100%;
+        height: 4vh;
+        border: none;
+        background: transparent;
+        color: white;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        font-weight: bold;
+    }
+</style>
+<script>
+    $('#more<?php echo $id.$pseudo; ?>').click(function(){
+            $('#command<?php echo $id.$pseudo; ?>').css('display','')
+    })
+    $('#delete<?php echo $id.$pseudo; ?>').click(function(){
+       
+        $.ajax({
+            type:'POST',
+            url:'../php/deleteTweet.php',
+            data:{
+                id: '<?php echo $id; ?>',
+                pseudo: '<?php echo $pseudo ?>',
+            },
+            success: function(output){
+                $('#<?php echo $id.$pseudo; ?>').css('display','none')
+                console.log(output)
+            },
+            error:function(output){
+                
+            }
+        })
+    })
+    $('#follow<?php echo $id.$pseudo; ?>').click(function(){
+        $.ajax({
+            type:'POST',
+            url:'../php/follow.php',
+            data:{
+                Followed:'<?php echo $pseudo ?>',
+            },
+            success: function(output){
+                console.log(output)
+                $('#follow<?php echo $id.$pseudo; ?>').css('display','none')
+                $('#unfollow<?php echo $id.$pseudo?>').css('display','')
+            }
+        })
+    })
+    $('#unfollow<?php echo $id.$pseudo?>').click(function(){
+        $.ajax({
+            type:'POST',
+            url:'../php/unfollow.php',
+            data:{
+                Followed:'<?php echo $pseudo ?>',
+            },
+            success: function(){
+                $('#follow<?php echo $id.$pseudo; ?>').css('display','')
+                $('#unfollow<?php echo $id.$pseudo?>').css('display','none')
+            }
+        })
+    })
+    $('#block<?php echo $id.$pseudo?>').click(function(){
+        $.ajax({
+            type:"POST",
+            url:"../php/block.php",
+            data:{
+                Blocked:'<?php echo $pseudo ?>',
+            },
+            success: function(){
+                document.getElementById('<?php echo $id.$pseudo?>').style.display = 'none'
+            }
+        })
+    })
+    $(document).click(function(event) { 
+        if(!$(event.target).closest('#<?php echo $id.$pseudo; ?>').length) {
+            $('#command<?php echo $id.$pseudo; ?>').css('display','none')
+        } 
+    });
+</script>

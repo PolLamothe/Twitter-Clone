@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Accueil</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="./css/Accueil.css" rel="stylesheet" >
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/ecca3bec75.js" crossorigin="anonymous"></script>
+</head>
+<body bgcolor="black">
+    <?php require 'navside.html';?>
+    <div class="mainContent" style="overflow: hidden;">
+        <p class="AccueilText">Accueil</p>
+        <div class="hr" style="margin-bottom: 2vh;"></div>
+        <div class="topPart" id="topPart" style="display: grid;">
+            <img src=<?php echo $profilePicture?> class='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $_SESSION['Pseudo']?>">
+            <div style="grid-column: 2/15;margin-top: 1vh;display: grid;">
+                <textarea placeholder="Quoi de neuf?" class="tweetText" id="tweetText" oninput="tweetButtonOpacity()"></textarea>
+                <div style="display: none;position: relative;" id="preview">
+                    <i class="fa-solid fa-x fa-xl close" id="close" style="color: white;"></i>
+                    <img id="previewImage">
+                </div>
+                <i class="fa-regular fa-image fa-1x" style="color:#1d9bf0;margin-top: 1vh;height: fit-content;padding: 25%;" onclick=objectClick()></i>
+                <input type="file" accept="image/png, image/jpeg" name="object" style="display:none;" id="TweetObject" onchange="objectButton()">
+                <button onclick="TweetButton()" class="TweetButton" id="TweetButton">Tweeter</button>
+            </div>
+        </div>
+        <div class="hr" style="margin-top: 2vh;"></div>
+        <div id="tweet">
+            <?php getPostTableData() ?>
+        </div>
+        <div id="insertion"></div>
+    </div>
+    <?php require 'rightSide.html';?>
+    <script src="../js/Accueil.js"></script>
+</body>
+</html>

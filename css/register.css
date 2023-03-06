@@ -1,0 +1,98 @@
+@font-face {
+    font-family: Inter;
+    src: url('./police/Inter/Inter-VariableFont_slnt\,wght.ttf');
+}
+body{margin: 0px;overflow: hidden;}
+
+.login{
+    color: lightgray;
+    font-family: apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    text-align: center;
+    margin-top: 5%;
+}
+.field{
+    position: relative;
+    margin-left: 1%;
+    margin-top: 2%;
+    font-size: 15px;
+    height: 4vh;
+    width: 35%;
+    background-color: transparent;
+    border: 1px solid grey;
+    color: white;
+}
+.validate{
+    position: relative;
+    text-align: center;
+    border: none;
+    margin: 2%;
+    margin-top: 5%;
+    width: 30%;
+    height: 4.5vh;
+    border-radius: 15px;
+    font-size: 15px;
+    font-family: apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-weight: 600;
+}
+
+.emailCode{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 1;
+}
+.emailCode div{
+    width: 30vw;
+    height: 35vh;
+    background-color: #202020;
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%);
+    border-top-left-radius: 0% !important;
+    border-top-right-radius: 0% !important;
+    border-radius: 30px;
+}
+.emailCode h1{
+    color: white;
+    text-align: center;
+    font-family:  apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;;
+}
+.emailCode p{
+    color: white;
+    text-align: center;
+    font-family: Inter;
+    width: 80%;
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+.emailCode form input{
+    text-align: center;
+    margin-left: 50%;
+    transform: translate(-50%);
+    margin-top: 3vh;
+    height: 4vh;
+    width: 10vw;
+    border-radius: 15px;
+    font-size: large;
+    border: none;
+}
+.emailCode button{
+    margin-left: 50%;
+    transform: translate(-50%);
+    border: none;
+    border-radius: 20px;
+    color: black;
+    height: 5vh;
+    width: 10vw;
+    margin-top: 3vh;
+}
+.emailCode text{
+    color: black;
+    font-family: Inter;
+    font-weight: bold;
+}

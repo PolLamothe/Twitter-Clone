@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Accueil</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="../css/mutual.css" rel="stylesheet" >
+    <link href="../css/profile.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/ecca3bec75.js" crossorigin="anonymous"></script>
+</head>
+<body bgcolor="black">
+    <?php require 'navside.html';?>
+    <div id="mainContent">
+        <div id="header">
+            <img src="../data/svg/arrow.webp" id="backArrow" onclick=document.location.href="Accueil.php">
+            <p id="AccueilText"><?php echo $pseudo ?></p>
+            <p id="tweetNumber"><?php echo getTweetNumber($pseudo)?> tweets</p>
+        </div>
+        <div class="hr" style="margin-bottom: 2vh;"></div>
+        <img src=<?php echo $banner ?> id="banner">
+        <img src=<?php echo $profilePicture ?> id="profile_picture">
+        <?php if($pseudo == $_SESSION['Pseudo']){echo '<button id="editButton">éditer le profile</button>';
+        echo'<div id="editInterface" style="display: none;">
+            <div id="editInterfaceBackground">
+                <img src="../data/svg/cross.png" id="exitCross">
+                <p id="editText">éditer le profile</p> 
+                <button id="submit">Enregistrer</button>
+                <div style="position: relative;">
+                    <img src='.$banner.' id="banner2">
+                    <input type="file" id="bannerInput" style="display: none;" oninput="cameraChange()">
+                    <img src="../data/svg/camera.svg" id="camera">
+                </div>
+                <div style="position: relative;margin-top: -5vw;margin-left: 2vw;z-index: 100;width: min-content;">
+                    <img src='.$profilePicture.' id="profile_picture2">
+                    <input type="file" id="profileInput" style="display: none;" oninput="cameraChange2()">
+                    <img src="../data/svg/camera.svg" id="camera2">
+                </div>
+                <div>
+                    <textarea type="text" placeholder="Biographie" id="biographieInput">'.$biographie.'</textarea>
+                </div>
+            </div>
+        </div>';} ?>
+        <p id="pseudo"><?php echo $pseudo?></p>
+        <P id="biographie"><?php echo $biographie ?></P>
+        <p class="numberOFFollowing"><?php echo $numberOfFollowing ?> abonnements</p>  
+        <p class="numberOFFollowing"><?php echo $numberOfFollower ?> abonnés</p>
+        <div class="hr" style="margin-top: 2vh;"></div>
+        <div id="debug"></div>
+        <div id="tweet">
+            <?php displayUserTweet($pseudo) ?>
+        </div>
+    </div>
+    <?php require 'rightSide.html';?>
+    <script src="./js/profile.js"></script>
+</body>
+</html>

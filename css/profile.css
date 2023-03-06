@@ -1,0 +1,209 @@
+@font-face {
+    font-family: Inter;
+    src: url('./police/Inter/Inter-VariableFont_slnt\,wght.ttf');
+}
+#mainContent{
+    width: 50vw;
+    overflow: hidden;
+    position: relative;
+}
+body{
+    overflow-x: hidden;
+}
+#AccueilText{   
+    color: white;
+    font-size: 21px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    margin-left: 1vw;
+    display: inline;
+}
+#backArrow{
+    filter: invert(100%);
+    width: 1vw;
+    aspect-ratio: initial;
+    transform: rotate(180deg);
+    display: inline;
+    margin-left: 1vw;
+    background-size: 10%;
+    padding: 0.4vw;
+    margin-bottom: -0.4vw;
+}
+#backArrow:hover{
+    background-color: lightgray;
+    border-radius: 50%;
+}
+#header{
+    padding-bottom: 3vh;
+    padding-top: 2vh;
+}
+#banner{
+    margin-top: -2vh;
+    height: 28vh;
+    width: 50vw;
+    object-fit: cover;
+}
+#profile_picture{
+    border-radius: 50%;
+    width: 8vw;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    margin-left: 2vw;
+    margin-top: -6vw;
+    border: 5px solid black;
+}
+#tweetNumber{
+    color: white;
+    font-size: 12px;
+    font-family: Inter;
+    margin-left: 4vw;
+    position: absolute;
+    transform: translate(0%, -80%);
+    color: grey;
+}
+#editButton{
+    position: absolute;
+    right: 4vw;
+    margin-top: 2vh;
+    border-radius: 30px;
+    padding: 0.6vw;
+    background-color: transparent;
+    color: white;
+    border: 1px solid lightgray;
+    font-family: Inter;
+}
+#editButton:hover{
+    background-color: rgba(255,255,255,0.1);
+}
+#pseudo{
+    color: white;
+    font-family: Inter;
+    font-size: 20px;
+    margin-left: 1vw;
+    font-weight: bold;
+}
+.numberOFFollowing{
+    color: white;
+    font-family: Inter;
+    font-size: 14px;
+    margin-left: 1vw;
+    display: inline;
+}
+.numberOFFollowing:hover{
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: white;
+}
+#editInterface{
+    width:100vw;
+    height: 100vh;
+    background-color: rgba(124,185,241, 0.3);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+}
+#editInterfaceBackground{
+    background-color: black;
+    position: relative;
+    width: 40vw;
+    height: 80vh;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%,15%);
+    border-radius: 30px;
+}
+#exitCross{
+    filter: invert(125%);
+    transform: rotate(45deg);
+    width: 1.5vw;
+    margin-left: 1vw;
+    margin-top: 1vw;
+    display: inline;
+    padding: 1vh;
+}
+#exitCross:hover{
+    background-color: lightgray;
+    border-radius: 50%;
+}
+#editText{
+    position: relative;
+    color: white;
+    font-family: Inter;
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+    top: -1.5vh;
+    margin-left: 1vw;
+}
+#submit{
+    display: inline;
+    float: right;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-family: Inter;
+    font-weight: bold;
+    letter-spacing: -1px;
+    padding: 1vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-top: 1vw;
+    margin-right: 1.5vw;
+}
+#banner2{
+    width: 40vw;
+    margin-top: 1vh;
+    aspect-ratio: 15/5;
+    object-fit: cover;
+}
+#profile_picture2{
+    border-radius: 50%;
+    width: 8vw;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 4px solid black;
+    position: relative;
+}
+#camera{
+    filter: invert(100%);
+    width: 2vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: lightgray;
+    border-radius: 50%;
+    padding: 1vh;
+}
+#camera2{
+    filter: invert(100%);
+    width: 2vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: lightgray;
+    border-radius: 50%;
+    padding: 1vh;
+}
+#biographieInput{
+    background: transparent;
+    border: 1px solid grey;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 2vh;
+    height: 8vh;
+    color: white;
+    font-family: Inter;
+}
+#biographie{
+    color: white;
+    font-family: Inter;
+    font-size: 16px;
+    margin-left: 1vw;
+}
+#tweet{
+    width: 50vw;
+}

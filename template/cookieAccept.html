@@ -1,0 +1,52 @@
+<div class="background">
+    <div>
+        <h1>
+            Souhaitez-vous accepter les cookies ?
+        </h1>
+        <form method="post" action="">
+            <input type="submit" value="Oui">
+            <input type="hidden" value="Yes" name="cookieChoice">
+        </form>
+        <form method="post" action="">
+            <input type="submit" value="Non" style="color: white;background-color: transparent;border: 3px solid white;">
+            <input type="hidden" value="No" name="cookieChoice">
+        </form>
+    </div>
+</div>
+<style>
+    .background{
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background-color: rgba(0, 0, 0, 0.75);
+        z-index: 100;
+    }
+    .background div{
+        background-color: black;
+        width: 40vw;
+        height: 70vh;
+        position: absolute;
+        margin-left: 50vw;
+        margin-top: 50vh;
+        transform: translate(-50%,-50%);
+        border-radius: 30px;
+    }
+    .background div h1{
+        color: white;
+        text-align: center;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;;
+        margin-top: 7vh;
+        margin-bottom: 18vh;
+    }
+    input{
+        width: 40%;
+        margin-left: 50%;
+        transform: translate(-50%);
+        height: 8%;
+        border-radius: 20px;
+        margin-top: 3vh;
+        font-size: 22px;
+    }
+</style>
