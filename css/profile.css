@@ -10,6 +10,9 @@
 body{
     overflow-x: hidden;
 }
+.navSide div div p{
+transform: translate(0%,-50%)!important;
+}
 #AccueilText{   
     color: white;
     font-size: 21px;

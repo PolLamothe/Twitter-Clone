@@ -22,23 +22,10 @@ body{
     position: sticky;
     top: 0px;
 }
-.navSide div{
-    display: grid;
-    color: white;
-    height: 100%;   
-    float: right;
-}
 .fa-twitter{
     margin-top: 2vh;
     grid-column: 1;
     margin-left: 8vw;
-}
-.navButton{
-    margin-left: 8vw;
-    margin-top: 1vh;
-    grid-column: 1;
-    display: inline;
-    width: max-content;
 }
 .navSide div div i{
     grid-column: 1;

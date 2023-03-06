@@ -116,8 +116,7 @@ body{
 }
 .navSide div{
     display: grid;
-    color: white;
-    height: 100%;   
+    color: white;   
     float: right;
 }
 
@@ -127,14 +126,18 @@ body{
     grid-column: 1;
     display: inline;
     width: max-content;
+    height: 6vh;
+    padding: 1vw;
+    border-radius: 20px;
 }
 .navButton:hover{
-    background-color: gray;
+    background-color: rgba(97, 97, 97, 0.3);
    
 }
 .navSide div div i{
     grid-column: 1;
     height: min-content;
+    font-size: 2vw;
 }
 .navSide div div p{
     grid-column: 2;
