@@ -21,7 +21,7 @@
         <div class="hr" style="margin-bottom: 2vh;"></div>
         <img src=<?php echo $banner ?> id="banner">
         <img src=<?php echo $profilePicture ?> id="profile_picture">
-        <?php if($pseudo == $_SESSION['Pseudo']){echo '<button id="editButton">éditer le profile</button>';
+        <?php if($pseudo == $_SESSION['Pseudo']){echo '<button id="editButton" class="editButton">éditer le profile</button>';
         echo'<div id="editInterface" style="display: none;">
             <div id="editInterfaceBackground">
                 <img src="../data/svg/cross.png" id="exitCross">
@@ -41,7 +41,18 @@
                     <textarea type="text" placeholder="Biographie" id="biographieInput">'.$biographie.'</textarea>
                 </div>
             </div>
-        </div>';} ?>
+        </div>';}else{
+            $displayFollow = '';
+            $displayUnFollow = '';
+            if(isFollowing($_SESSION['Pseudo'],$pseudo)){
+                $displayFollow = 'none';
+            }else{
+                $displayUnFollow = 'none';
+            }
+            echo '<button style="display:'.$displayFollow.';" id="followButton" class="editButton followButton">Suivre</button>
+                <button style="display:'.$displayUnFollow.';" id="unFollowButton" class="editButton unFollowButton">Ne plus suivre</button>
+            ';
+        } ?>
         <p id="pseudo"><?php echo $pseudo?></p>
         <P id="biographie"><?php echo $biographie ?></P>
         <p class="numberOFFollowing"><?php echo $numberOfFollowing ?> abonnements</p>  
@@ -54,5 +65,48 @@
     </div>
     <?php require 'rightSide.html';?>
     <script src="./js/profile.js"></script>
+    <script>
+        var listIcons = ['AccueilIcon']
+        for(var x=0;x<listIcons.length;x++){
+            console.log('#'.element)
+            if($('#'.element).hasClass('fa-regular')){
+                $('#'.element).removeClass('fa-regular')
+                $('#'.element).addClass('fa-solid')
+            }
+            if($('#'.element).hasClass('fa-solid')){
+                $('#'.element).removeClass('fa-solid')
+                $('#'.element).addClass('fa-regular')
+            }
+        };
+        $('#profileIcon').addClass('fa-solid')
+        $('#profileIcon').removeClass('fa-regular')
+        $('#followButton').click(function(){
+            $.ajax({
+                type:'POST',
+                url:'../php/follow.php',
+                data:{
+                    Followed:'<?php echo $pseudo ?>',
+                },
+                success: function(output){
+                    console.log(output)
+                    $('#followButton').css('display','none')
+                    $('#unFollowButton').css('display','')
+                }
+            })
+        })
+        $('#unFollowButton').click(function(){
+            $.ajax({
+                type:'POST',
+                url:'../php/unfollow.php',
+                data:{
+                    Followed:'<?php echo $pseudo ?>',
+                },
+                success: function(){
+                    $('#followButton').css('display','')
+                    $('#unFollowButton').css('display','none')
+                }
+            })
+        })
+    </script>
 </body>
 </html>

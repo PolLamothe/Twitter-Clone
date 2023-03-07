@@ -136,6 +136,10 @@
                 console.log(output)
                 $('#follow<?php echo $id.$pseudo; ?>').css('display','none')
                 $('#unfollow<?php echo $id.$pseudo?>').css('display','')
+                <?php if(isset($pseudo)){
+                    echo "$('#unFollowButton').css('display','')
+                    $('#followButton').css('display','none')";
+                }?>
             }
         })
     })
@@ -149,6 +153,10 @@
             success: function(){
                 $('#follow<?php echo $id.$pseudo; ?>').css('display','')
                 $('#unfollow<?php echo $id.$pseudo?>').css('display','none')
+                <?php if(isset($pseudo)){
+                    echo "$('#followButton').css('display','')
+                    $('#unFollowButton').css('display','none')";
+                }?>
             }
         })
     })

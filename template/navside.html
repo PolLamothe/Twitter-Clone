@@ -2,8 +2,8 @@
     <span id="verticale1"></span>
     <div>
         <i class="fa-brands fa-twitter fa-2x"></i>
-        <div class="navButton">
-            <i class="fa-solid fa-house fa-2x"></i>
+        <div class="navButton" onclick="redirect('home')"> 
+            <i class="fa-solid fa-house fa-2x" id="AccueilIcon"></i>
             <p>Accueil</p>
         </div>
         <div class="navButton">
@@ -22,8 +22,8 @@
             <i class="fa-regular fa-bookmark fa-2x"></i>
             <p>Signet</p>
         </div>
-        <div class="navButton">
-            <i class="fa-regular fa-user fa-2x"></i>
+        <div class="navButton" onclick="redirect('profile')">
+            <i class="fa-regular fa-user fa-2x" id="profileIcon"></i>
             <p>Profile</p>
         </div>
         <div class="navButton">
@@ -39,3 +39,12 @@
     margin-left: 8vw;
     }
 </style>
+<script>
+    function redirect(page){
+        if(page == 'profile'){
+            window.location.href = 'profile.php?user=<?php echo $_SESSION["Pseudo"]; ?>'
+        }else if(page == 'home'){
+            window.location.href = 'index.php ?>'
+        }
+    }
+</script>

@@ -11,7 +11,7 @@ body{
     overflow-x: hidden;
 }
 .navSide div div p{
-transform: translate(0%,-50%)!important;
+transform: translate(0%,-60%)!important;
 }
 #AccueilText{   
     color: white;
@@ -64,19 +64,35 @@ transform: translate(0%,-50%)!important;
     transform: translate(0%, -80%);
     color: grey;
 }
-#editButton{
+.editButton{
     position: absolute;
     right: 4vw;
     margin-top: 2vh;
     border-radius: 30px;
+    font-weight: bold;
     padding: 0.6vw;
     background-color: transparent;
     color: white;
     border: 1px solid lightgray;
     font-family: Inter;
 }
-#editButton:hover{
+.editButton:hover{
     background-color: rgba(255,255,255,0.1);
+}
+.unFollowButton:hover{
+    background-color: rgba(255,0,0,0.15);
+    border-color: red;
+    color: red;
+}
+.followButton{
+    color: black;
+    background-color: white;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+.followButton:hover{
+    color: black;
+    background-color: white;
 }
 #pseudo{
     color: white;
