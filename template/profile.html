@@ -91,6 +91,8 @@
                     console.log(output)
                     $('#followButton').css('display','none')
                     $('#unFollowButton').css('display','')
+                    $('.followOnTweet').css('display','none')
+                    $('.unFollowOnTweet').css('display','')
                 }
             })
         })
@@ -104,6 +106,8 @@
                 success: function(){
                     $('#followButton').css('display','')
                     $('#unFollowButton').css('display','none')
+                    $('.followOnTweet').css('display','')
+                    $('.unFollowOnTweet').css('display','none')
                 }
             })
         })

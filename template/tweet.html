@@ -11,8 +11,8 @@
     <img src="../data/svg/more.svg" id='more<?php echo $id.$pseudo; ?>'style="filter: invert(100%);opacity: 40%;">
     <div id="command<?php echo $id.$pseudo; ?>" style="display:none;">
         <?php if($pseudo == $_SESSION['Pseudo']){echo '<button style="color: red;border-radius: 20px;" id=delete'.$id.$pseudo.'>Supprimer</button>';} ?>
-        <button style="border-top-left-radius: 14px;border-top-right-radius: 14px;<?php if($isFollowing || $_SESSION['Pseudo'] == $pseudo){echo 'display:none;';}?>" id=follow<?php echo $id.$pseudo ?>>Suivre <?php echo $pseudo; ?></button>
-        <button style="color: red;border-top-left-radius: 14px;border-top-right-radius: 14px;<?php if(!$isFollowing){echo 'display:none;';}?>" id=unfollow<?php echo $id.$pseudo ?>>Ne plus suivre <?php echo $pseudo; ?></button>
+        <button style="border-top-left-radius: 14px;border-top-right-radius: 14px;<?php if($isFollowing || $_SESSION['Pseudo'] == $pseudo){echo 'display:none;';}?>" id=follow<?php echo $id.$pseudo ?> class="followOnTweet">Suivre <?php echo $pseudo; ?></button>
+        <button style="color: red;border-top-left-radius: 14px;border-top-right-radius: 14px;<?php if(!$isFollowing){echo 'display:none;';}?>" id=unfollow<?php echo $id.$pseudo ?> class="unFollowOnTweet">Ne plus suivre <?php echo $pseudo; ?></button>
         <button style="color: red;border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if($pseudo == $_SESSION['Pseudo']){echo 'display:none;';}?>" id=block<?php echo $id.$pseudo ?>>Bloquer <?php echo $pseudo; ?></button>
     </div>
     <div class="hr"></div>
