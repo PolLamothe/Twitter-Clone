@@ -129,6 +129,7 @@ body{
     height: 6vh;
     padding: 1vw;
     border-radius: 20px;
+    cursor: default;
 }
 .navButton:hover{
     background-color: rgba(97, 97, 97, 0.3);

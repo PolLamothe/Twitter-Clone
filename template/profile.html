@@ -68,7 +68,8 @@
     <script>
         var listIcons = ['AccueilIcon']
         for(var x=0;x<listIcons.length;x++){
-            console.log('#'.element)
+            var element = listIcons[x]
+            console.log(element)
             if($('#'.element).hasClass('fa-regular')){
                 $('#'.element).removeClass('fa-regular')
                 $('#'.element).addClass('fa-solid')
@@ -78,8 +79,10 @@
                 $('#'.element).addClass('fa-regular')
             }
         };
-        $('#profileIcon').addClass('fa-solid')
+        if('<?php echo $pseudo; ?>' == '<?php echo $_SESSION['Pseudo']; ?>'){
+            $('#profileIcon').addClass('fa-solid')
         $('#profileIcon').removeClass('fa-regular')
+        }
         $('#followButton').click(function(){
             $.ajax({
                 type:'POST',
