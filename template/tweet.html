@@ -14,7 +14,8 @@
         <button style="border-top-left-radius: 14px;border-top-right-radius: 14px;<?php if($isFollowing || $_SESSION['Pseudo'] == $pseudo){echo 'display:none;';}?>" id=follow<?php echo $id.$pseudo ?> class="followOnTweet">Suivre <?php echo $pseudo; ?></button>
         <button style="color: red;border-top-left-radius: 14px;border-top-right-radius: 14px;<?php if(!$isFollowing){echo 'display:none;';}?>" id=unfollow<?php echo $id.$pseudo ?> class="unFollowOnTweet">Ne plus suivre <?php echo $pseudo; ?></button>
         <button style="color: red;"id=block<?php echo $id.$pseudo ?>>Bloquer <?php echo $pseudo; ?></button>
-        <button style='border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;' id="signets<?php echo $pseudo.$id?>">Ajouter aux Signets</button>
+        <button style='border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if(isInSignet($_SESSION["Pseudo"],$pseudo,$id)){echo "display: none;";}?>' id="signets<?php echo $pseudo.$id?>">Ajouter aux Signets</button>
+        <button style='border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if(!isInSignet($_SESSION["Pseudo"],$pseudo,$id)){echo "display: none;";}?>' id="deletesignets<?php echo $pseudo.$id?>">Retirer des signets</button>
     </div>
     <div class="hr"></div>
 </div>  
@@ -106,6 +107,9 @@
     #signets<?php echo $pseudo.$id;?>:hover{
         background-color: #202020;
     }
+    #deletesignets<?php echo $pseudo.$id;?>:hover{
+        background-color: #202020;
+    }
 </style>
 <script>
     $('#more<?php echo $id.$pseudo; ?>').click(function(){
@@ -177,10 +181,23 @@
         })
     })
     $('#signets<?php echo $pseudo.$id ?>').click(function(){
-        console.log('click working')
         $.ajax({
             type:"POST",
             url:"../php/addSignets.php",
+            data:{
+                Author:'<?php echo $pseudo ?>',
+                ID:'<?php echo $id?>'
+            },
+            success:function(output){
+                document.getElementById('tweet').insertAdjacentHTML('afterbegin',output)
+            }
+        })
+        })
+        $('#deletesignets<?php echo $pseudo.$id ?>').click(function(){
+        console.log('click working')
+        $.ajax({
+            type:"POST",
+            url:"../php/removeFromSignets.php",
             data:{
                 Author:'<?php echo $pseudo ?>',
                 ID:'<?php echo $id?>'

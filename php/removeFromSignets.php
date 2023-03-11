@@ -3,8 +3,8 @@
     if(!isset($_SESSION)){
         session_start();
     }
-    require 'function.php';
+    require './function.php';
     if(isPasswordValid($_SESSION['Pseudo'],$_SESSION['Password'])){
-        addSignets($_SESSION['Pseudo'],$_POST['Author'],$_POST['ID']);
+        deleteFromSignets($_SESSION['Pseudo'],$_POST['Author'],$_POST['ID']);
     }
 ?>
