@@ -411,4 +411,28 @@
             displayTweet($pseudo, $i, $isFollowing);
         }
     }
+    function isInSignet($user, $Author, $id){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare("SELECT * from signet where User = :user and Author = :Author and Id = :ID");
+        $smtp->bindParam(':user',$user);
+        $smtp->bindParam(':Author',$Author);
+        $smtp->bindParam(':ID',$id);
+        $smtp->execute();
+        $final = $smtp->fetch();
+        return $final;
+    }
+    function addSignets($user, $Author, $id){
+        require 'ID.php';
+        if(isInSignet($user,$Author,$id) == false){
+            $date = date('d-m-y h:i:s');
+            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            $smtp = $pdo->prepare("INSERT into signet (User,Author,ID,Date) values (:user, :author, :ID, :date)");
+            $smtp->bindParam(':user', $user);
+            $smtp->bindParam(':author',$Author);
+            $smtp->bindParam(':ID',$id);
+            $smtp->bindParam(':date',$date);
+            $smtp->execute();
+        }
+    }
 ?>
