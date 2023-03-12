@@ -18,8 +18,8 @@
             <i class="fa-regular fa-envelope fa-2x"></i>
             <p>Message</p>
         </div>
-        <div class="navButton">
-            <i class="fa-regular fa-bookmark fa-2x"></i>
+        <div class="navButton" onclick="redirect('signets')">
+            <i class="fa-regular fa-bookmark fa-2x" id="SignetsIcon"></i>
             <p>Signet</p>
         </div>
         <div class="navButton" onclick="redirect('profile')">
@@ -44,7 +44,9 @@
         if(page == 'profile'){
             window.location.href = 'profile.php?user=<?php echo $_SESSION["Pseudo"]; ?>'
         }else if(page == 'home'){
-            window.location.href = 'index.php ?>'
+            window.location.href = 'index.php'
+        }else if(page == 'signets'){
+            window.location.href = 'signets.php'
         }
     }
 </script>

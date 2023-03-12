@@ -444,8 +444,18 @@
             $smtp->bindParam(':Author',$Author);
             $smtp->bindParam(':ID',$id);
             $smtp->execute();
-        }else{
-            echo 'error';
+        }
+    }
+    function getAllSignetsTweet($pseudo){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare('SELECT Author, ID from signet where User = :User');
+        $smtp->bindParam(':User',$pseudo);
+        $smtp->execute();
+        $numberOfLine = $smtp->rowCount();
+        $array = $smtp->fetch(PDO::FETCH_BOTH);
+        for($x = 0;$x<$numberOfLine;$x++){
+            displayTweet($array['Author'],$array['ID'],true);
         }
     }
 ?>

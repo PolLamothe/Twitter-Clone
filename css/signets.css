@@ -1,0 +1,31 @@
+@font-face {
+    font-family: Inter;
+    src: url('./police/Inter/Inter-VariableFont_slnt\,wght.ttf');
+}
+#mainContent{
+    width: 50vw;
+    overflow: hidden;
+    position: relative;
+}
+body{
+    overflow-x: hidden;
+}
+.navSide div div p{
+    transform: translate(0%,-60%)!important;
+}
+#Title{
+    color: white;
+    font-size: 21px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    margin-left: 1.5vw;
+    margin-top: 1vh;
+    display: inline;
+}
+#userName{
+    color: gray;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    margin-left: 1.5vw;
+    transform: translate(0%,-80%);
+    font-size: 14px;
+}

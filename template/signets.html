@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>signets</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/signets.css'>
+    <script src="https://kit.fontawesome.com/ecca3bec75.js" crossorigin="anonymous"></script>   
+    <link href="../css/mutual.css" rel="stylesheet" >
+</head>
+<body bgcolor="black">
+    <?php require 'navside.html';?>
+    <div id="mainContent">
+        <h1 id="Title">Signets</h1>
+        <p id="userName"><?php echo $_SESSION['Pseudo']?></p>
+        <div class="hr" style="margin-top: -3vh;"></div>
+        <?php getAllSignetsTweet($_SESSION['Pseudo'])?>
+    </div>
+    <?php require 'rightSide.html';?>
+</body>
+<script>
+    $('#SignetsIcon').removeClass('fa-regular')
+    $('#SignetsIcon').addClass('fa-solid')
+    var listIcons = ['AccueilIcon']
+        for(var x=0;x<listIcons.length;x++){
+            var element = listIcons[x]
+            console.log(element)
+            if($('#'.element).hasClass('fa-solid')){
+                $('#'.element).removeClass('fa-solid')
+                $('#'.element).addClass('fa-regular')
+            }
+        };
+</script>
+</html>
