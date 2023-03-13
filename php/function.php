@@ -487,4 +487,11 @@
         $smtp->execute();
         return 'removed';
     }
+    function getNumberOfLike($Author, $id){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare('SELECT * from likepost where Author = "'.$Author.'" and ID = "'.$id.'"');
+        $smtp->execute();
+        return $smtp->rowCount();
+    }
 ?>

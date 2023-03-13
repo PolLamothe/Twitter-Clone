@@ -17,7 +17,10 @@
         <button style='border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if(isInSignet($_SESSION["Pseudo"],$pseudo,$id)){echo "display: none;";}?>' id="signets<?php echo $pseudo.$id?>">Ajouter aux Signets</button>
         <button style='color: red;border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if(!isInSignet($_SESSION["Pseudo"],$pseudo,$id)){echo "display: none;";}?>' id="deletesignets<?php echo $pseudo.$id?>">Retirer des signets</button>
     </div>
-    <img src="<?php if(!isTweetLiked($_SESSION['Pseudo'],$pseudo,$id)){echo '../data/svg/heart.svg';}else{echo '../data/svg/heartRed.svg';} ?>" class="heart" id="heart" style="<?php if(isTweetLiked($_SESSION['Pseudo'],$pseudo,$id)){ echo 'filter:invert(0%);';} ?>">
+    <div style="float:left;">
+        <img src="<?php if(!isTweetLiked($_SESSION['Pseudo'],$pseudo,$id)){echo '../data/svg/heart.svg';}else{echo '../data/svg/heartRed.svg';} ?>" class="heart" id="<?php echo 'heart'.$pseudo.$id ?>" style="<?php if(isTweetLiked($_SESSION['Pseudo'],$pseudo,$id)){ echo 'filter:invert(0%);';} ?>">
+    <p class="likeNumber" id="likeNumber<?php echo $pseudo.$id ?>"><?php echo getNumberOfLike($pseudo,$id)?></p>
+    </div>
     <div class="hr"></div>
 </div>  
 <div id="debug"></div>
@@ -118,6 +121,12 @@
         margin-left: 10vw;
         width: 1.2vw;
     }
+    .likeNumber{
+        color: gray;
+        float: left;
+        transform: translate(0%,-90%);
+        margin-left: 0.4vw;
+    }
 </style>
 <script>
     $('#more<?php echo $id.$pseudo; ?>').click(function(){
@@ -217,7 +226,8 @@
             }
         })
         })
-    $('#heart').click(function(){
+    var Liked = false
+    $('#heart<?php echo $pseudo.$id ?>').click(function(){
         $.ajax({
             type:"POST",
             url:"../php/like.php",
@@ -227,11 +237,19 @@
             },
             success:function(output){
                 if(output == 'added'){
-                    $('#heart').css('filter','invert(0%)')
-                    $('#heart').attr('src','../data/svg/heartRed.svg')
+                    $('#heart<?php echo $pseudo.$id ?>').css('filter','invert(0%)')
+                    $('#heart<?php echo $pseudo.$id ?>').attr('src','../data/svg/heartRed.svg')
+                    if(Liked == true){
+                        $('#likeNumber<?php echo $pseudo.$id ?>').text(<?php echo  getNumberOfLike($pseudo,$id)?>)
+                    }else{
+                        $('#likeNumber<?php echo $pseudo.$id ?>').text(<?php echo  getNumberOfLike($pseudo,$id)?> +1)
+                    }
+                    
                 }else{
-                    $('#heart').css('filter','invert(100%)')
-                    $('#heart').attr('src','../data/svg/heart.svg')
+                    Liked = true
+                    $('#heart<?php echo $pseudo.$id ?>').css('filter','invert(100%)')
+                    $('#heart<?php echo $pseudo.$id ?>').attr('src','../data/svg/heart.svg')
+                    $('#likeNumber<?php echo $pseudo.$id ?>').text(<?php echo  getNumberOfLike($pseudo,$id)?> -1)
                 }
                 
             }
