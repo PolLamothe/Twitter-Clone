@@ -17,6 +17,7 @@
         <button style='border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if(isInSignet($_SESSION["Pseudo"],$pseudo,$id)){echo "display: none;";}?>' id="signets<?php echo $pseudo.$id?>">Ajouter aux Signets</button>
         <button style='color: red;border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if(!isInSignet($_SESSION["Pseudo"],$pseudo,$id)){echo "display: none;";}?>' id="deletesignets<?php echo $pseudo.$id?>">Retirer des signets</button>
     </div>
+    <img src="<?php if(!isTweetLiked($_SESSION['Pseudo'],$pseudo,$id)){echo '../data/svg/heart.svg';}else{echo '../data/svg/heartRed.svg';} ?>" class="heart" id="heart" style="<?php if(isTweetLiked($_SESSION['Pseudo'],$pseudo,$id)){ echo 'filter:invert(0%);';} ?>">
     <div class="hr"></div>
 </div>  
 <div id="debug"></div>
@@ -26,6 +27,7 @@
         background-color: rgb(97, 97, 97);
         width: 100vw;
         height: 1px;
+        margin-top: 1vh;
     }
     p{
         color: white;
@@ -109,6 +111,12 @@
     }
     #deletesignets<?php echo $pseudo.$id;?>:hover{
         background-color: #202020;
+    }
+    .heart{
+        filter: invert(100%);
+        float: left;
+        margin-left: 10vw;
+        width: 1.2vw;
     }
 </style>
 <script>
@@ -209,6 +217,26 @@
             }
         })
         })
+    $('#heart').click(function(){
+        $.ajax({
+            type:"POST",
+            url:"../php/like.php",
+            data:{
+                Author:'<?php echo $pseudo ?>',
+                ID:'<?php echo $id?>'
+            },
+            success:function(output){
+                if(output == 'added'){
+                    $('#heart').css('filter','invert(0%)')
+                    $('#heart').attr('src','../data/svg/heartRed.svg')
+                }else{
+                    $('#heart').css('filter','invert(100%)')
+                    $('#heart').attr('src','../data/svg/heart.svg')
+                }
+                
+            }
+        })
+    })
     $(document).click(function(event) { 
         if(!$(event.target).closest('#<?php echo $id.$pseudo; ?>').length) {
             $('#command<?php echo $id.$pseudo; ?>').css('display','none')

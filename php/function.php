@@ -453,9 +453,38 @@
         $smtp->bindParam(':User',$pseudo);
         $smtp->execute();
         $numberOfLine = $smtp->rowCount();
-        $array = $smtp->fetch(PDO::FETCH_BOTH);
+        $array = $smtp->fetchAll();
         for($x = 0;$x<$numberOfLine;$x++){
-            displayTweet($array['Author'],$array['ID'],true);
+            displayTweet($array[$x]['Author'],$array[$x]['ID'],isFollowing($_SESSION['Pseudo'],$array[$x]['Author']));
         }
+    }
+    function isTweetLiked($user, $Author, $id){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare('SELECT * from likepost where User = :user and Author = :author and ID = :ID');
+        $smtp->bindParam(':user',$user);
+        $smtp->bindParam(':author',$Author);
+        $smtp->bindParam(':ID',$id);
+        $smtp->execute();
+        return $smtp->fetch();
+    }
+    function addLike($user, $Author, $id){
+        require 'ID.php';
+        $date = date('d-m-y h:i:s');
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare('INSERT into likepost (User, Author, ID, date) values (:user,:author,:ID, :date)');
+        $smtp->bindParam(':user',$user);
+        $smtp->bindParam(':author',$Author);
+        $smtp->bindParam(':ID',$id);
+        $smtp->bindParam(':date', $date);
+        $smtp->execute();
+        return 'added';
+    }
+    function removeLike($user, $Author, $id){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare('DELETE from likepost where User = "'.$user.'" and Author = "'.$Author.'" and ID = "'.$id.'"');
+        $smtp->execute();
+        return 'removed';
     }
 ?>
