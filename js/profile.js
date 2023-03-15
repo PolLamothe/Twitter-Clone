@@ -4,6 +4,7 @@ $('#editButton').click(function(){
     $('body').css('overflow-y','hidden')
     $('#editInterface').css('display','inline')
     $('#editInterface').css('margin-left',-navSide.offsetWidth)
+    $('.hr').css('width','50vw')
 })
 
 $('#camera').click(function(){
@@ -36,6 +37,7 @@ $('#submit').click(function(){
         contentType: false,
         data: formData,
         success: function(output){
+            $('#mainContent').css('overflow','hidden')
             $('#editInterface').css('display','none')
             $('body').css('overflow-y','visible')
             $('#banner').attr('src',$('#banner2').attr("src"))
@@ -47,4 +49,5 @@ $('#submit').click(function(){
 $('#exitCross').click(function(){
     $('#editInterface').css('display','none')
     $('body').css('overflow-y','visible')
+    $('#mainContent').css('overflow','hidden')
 })
