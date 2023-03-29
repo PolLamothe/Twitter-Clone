@@ -72,6 +72,7 @@
         position: absolute;
         right: 1vw;
         top: 2vh;
+        cursor: pointer;
     }
     #more<?php echo $id.$pseudo; ?>:hover{
         background-color: grey;
@@ -87,6 +88,7 @@
         -webkit-box-shadow: 0 0 3px #ccc;
         box-shadow: 0 0 3px #ccc;
         border-radius: 20px;
+        cursor: pointer;
     }
     #delete<?php echo $id.$pseudo; ?>:hover{
         background-color: #202020;
@@ -227,6 +229,10 @@
         })
         })
     var Liked = false
+    var initState = 'unlike'
+    if($('#heart<?php echo $pseudo.$id ?>').attr('src') == '../data/svg/heartRed.svg'){
+        var initState = 'like'
+    }
     $('#heart<?php echo $pseudo.$id ?>').click(function(){
         $.ajax({
             type:"POST",
@@ -249,7 +255,11 @@
                     Liked = true
                     $('#heart<?php echo $pseudo.$id ?>').css('filter','invert(100%)')
                     $('#heart<?php echo $pseudo.$id ?>').attr('src','../data/svg/heart.svg')
-                    $('#likeNumber<?php echo $pseudo.$id ?>').text(<?php echo  getNumberOfLike($pseudo,$id)?> -1)
+                    if(initState == 'like'){
+                        $('#likeNumber<?php echo $pseudo.$id ?>').text(<?php echo  getNumberOfLike($pseudo,$id)?> -1)
+                    }else{
+                        $('#likeNumber<?php echo $pseudo.$id ?>').text(<?php echo  getNumberOfLike($pseudo,$id)?>)
+                    }
                 }
                 
             }
