@@ -38,13 +38,16 @@
     grid-column: 1;
     margin-left: 8vw;
     }
+    body{
+        overflow-x: hidden;
+    }
 </style>
 <script>
     function redirect(page){
         if(page == 'profile'){
             window.location.href = 'profile.php?user=<?php echo $_SESSION["Pseudo"]; ?>'
         }else if(page == 'home'){
-            window.location.href = 'index.php'
+            window.location.href = 'Accueil.php'
         }else if(page == 'signets'){
             window.location.href = 'signets.php'
         }

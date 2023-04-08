@@ -92,13 +92,13 @@
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.office365.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = $email;                     //SMTP username
+            $mail->Username   = $emailSender;                     //SMTP username
             $mail->Password   = $emailPassword;                               //SMTP password
             $mail->SMTPSecure = 'PHPMailer::ENCRYPTION_STARTTLS';            //Enable implicit TLS encryption
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom($email, 'Pol Lamothe');
+            $mail->setFrom($emailSender, 'Pol Lamothe');
             $mail->addAddress($email);     //Add a recipient
 
             //Content
@@ -284,7 +284,7 @@
     function getPostTableData(){
         require 'ID.php';
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare("SELECT * from `all_post` order by `all_post`.`creationdate` desc, `all_post`.`ID` desc");
+        $smtp = $pdo->prepare("SELECT * from `all_post` order by `all_post`.`creationdate` , `all_post`.`ID` ");
         $smtp->execute();
         $array = $smtp->fetchAll();
         $numberOfLine =  count($array);
@@ -493,5 +493,35 @@
         $smtp = $pdo->prepare('SELECT * from likepost where Author = "'.$Author.'" and ID = "'.$id.'"');
         $smtp->execute();
         return $smtp->rowCount();
+    }
+    function getNumberOfComment($pseudo, $id){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare("SELECT * from commentaire where PostUser = '".$pseudo."' and ID_Post = '".$id."'");
+        $smtp->execute();
+        return $smtp->rowCount();
+    }
+    function getCommentID($PostUser, $ID_Post){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare("SELECT ID_Comment from commentaire where PostUser = '".$PostUser."' and ID_Post = '".$ID_Post."' order by ID_Comment desc");
+        $smtp->execute();
+        if(getNumberOfComment($PostUser, $ID_Post) == 0){
+            return 1;
+        }
+        return $smtp->fetchAll()[0][0] +1;
+    }
+    function writeACommentonAPost($message, $Author, $PostUser, $ID_POST, $ID_Comment){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare("INSERT into commentaire (Message, Author, PostUser, ID_Post, ID_Comment, IsComment, ID_OfTheComment) values ('".$message."','".$Author."','".$PostUser."',".$ID_POST.",".$ID_Comment.",false, null)");
+        $smtp->execute();
+    }
+    function isTweetExisting($PostUser,$ID_POST,$ID_Comment){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare('SELECT * from commentaire where PostUser = "'.$PostUser.'" and ID_Post = "'.$ID_POST.'"and ID_Comment = "'.$ID_Comment.'"');
+        $smtp->execute();
+        return $smtp->fetch();
     }
 ?>

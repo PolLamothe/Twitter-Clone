@@ -6,7 +6,7 @@
     if(isPasswordValid($_SESSION['Pseudo'],$_SESSION['Password'])){
         $profilePicture = getProfilePicture($_SESSION['Pseudo']);
         if($profilePicture == ''){
-            $profilePicture = "./data/image/profile_Picture/default.webp";
+            $profilePicture = "./data/image/profile_picture/default.webp";
         }
         if(isset($_POST['origin']) == false){
             $user = $_SESSION['Pseudo'];

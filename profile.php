@@ -15,7 +15,7 @@
         $banner = "./data/image/banner/default.webp";
     }
     if($profilePicture == ""){
-        $profilePicture = "./data/image/profile_Picture/default.webp";
+        $profilePicture = "./data/image/profile_picture/default.webp";
     }
 
     require './template/profile.html';

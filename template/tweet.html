@@ -17,12 +17,31 @@
         <button style='border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if(isInSignet($_SESSION["Pseudo"],$pseudo,$id)){echo "display: none;";}?>' id="signets<?php echo $pseudo.$id?>">Ajouter aux Signets</button>
         <button style='color: red;border-bottom-left-radius: 14px;border-bottom-right-radius: 14px;<?php if(!isInSignet($_SESSION["Pseudo"],$pseudo,$id)){echo "display: none;";}?>' id="deletesignets<?php echo $pseudo.$id?>">Retirer des signets</button>
     </div>
-    <div style="float:left;max-height: 1vw">
+    <div style="float:left;max-height: 1vw;margin-top: -2.5vh">
+        <img src="../data/svg/comment.svg" id="<?php echo $pseudo.$id.'comment' ?>">
+        <p class="likeNumber"><?php echo getNumberOfComment($pseudo, $id); ?></p>
         <img src="<?php if(!isTweetLiked($_SESSION['Pseudo'],$pseudo,$id)){echo '../data/svg/heart.svg';}else{echo '../data/svg/heartRed.svg';} ?>" class="heart" id="<?php echo 'heart'.$pseudo.$id ?>" style="<?php if(isTweetLiked($_SESSION['Pseudo'],$pseudo,$id)){ echo 'filter:invert(0%);';} ?>">
-    <p class="likeNumber" id="likeNumber<?php echo $pseudo.$id ?>"><?php echo getNumberOfLike($pseudo,$id)?></p>
+        <p class="likeNumber" id="likeNumber<?php echo $pseudo.$id ?>"><?php echo getNumberOfLike($pseudo,$id)?></p>
     </div>
     <div class="hr"></div>
 </div>  
+<div id="commentBackground<?php echo $pseudo.$id;?>" style="display:none;">
+    <div class="tweetBackgroundComment">
+        <i class="fa-solid fa-x fa-xl close" style= "color: white;margin-top: 2vh;margin-left: 1vw;" id="closeComment<?php echo $pseudo.$id;?>"></i>
+        <input type="hidden" value="<?php echo $id; ?>" id="id">
+        <div style="display: flex;position: relative;margin-top: 5vh;">
+            <img src=<?php if($profilePicture == ""){echo "./data/image/profile_Picture/default.webp";}else{echo $profilePicture;} ?> id='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $pseudo ?>">
+            <p id="user"><?php echo $pseudo;?></p>
+            <p id="creationDate"><?php echo $creationDate; ?></p>
+        </div>
+        <p id="message"><?php echo $message;?></p>
+        <img <?php if($object != ""){echo "src=".$object;}?> id="object">
+        <img src="<?php if(getProfilePicture($_SESSION['Pseudo']) == null){echo './data/image/profile_picture/default.webp';}
+        else{echo getProfilePicture($_SESSION['Pseudo']);};?>" id="profilePicture" style="left: 1vw;position: absolute;">
+        <textarea class="tweetYourAnswer" placeholder="Tweetez votre réponse." id="Answer<?php echo $pseudo.$id ?>" oninput="AnswerButtonComment<?php echo $pseudo.$id;?>()"></textarea>
+        <button class="answerButton" id="answerButton<?php echo $pseudo.$id ?>">Répondre</button>
+    </div>  
+</div>
 <div id="debug"></div>
   
 <style>
@@ -120,7 +139,7 @@
     .heart{
         filter: invert(100%);
         float: left;
-        margin-left: 10vw;
+        margin-left: 5vw;
         width: 1.2vw;
     }
     .likeNumber{
@@ -128,6 +147,56 @@
         float: left;
         transform: translate(0%,-90%);
         margin-left: 0.4vw;
+    }
+    #<?php echo $pseudo.$id.'comment'?>{
+        filter: invert(100%);
+        float: left;
+        margin-left: 8vw;
+        width: 1.2vw;
+    }
+    #commentBackground<?php echo $pseudo.$id;?>{
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0px;
+        left: 0px;
+        background-color: rgba(124,185,241, 0.3);
+        z-index: 150;
+    }
+    .tweetBackgroundComment{
+        background-color: black;
+        position: absolute;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%,-50%);
+        padding: 1vw;
+        border-radius: 20px;
+    }
+    .tweetYourAnswer{
+        margin-left: 6vw;
+        width: 80%;
+        background-color: black;
+        border: none;
+        resize: none;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        font-size: 17px;
+        outline: none;
+        color: white;
+    }
+    .answerButton{
+        border-radius: 20px;
+        width: 7vw;
+        height: 5vh;
+        background-color: #1d9bf0;
+        float: right;
+        color: white;
+        font-size: 16px;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        font-weight: bold;
+        text-align: center;
+        border: none;
+        margin-right: 2vw;
+        opacity: 0.6;
     }
 </style>
 <script>
@@ -265,9 +334,55 @@
             }
         })
     })
+
+    $("#<?php echo $pseudo.$id.'comment' ?>").click(function(){
+        $("#commentBackground<?php echo $pseudo.$id;?>").css('display','inline')
+        $('body').css('overflow-y','hidden')
+        $('#mainContent').css('position','static')
+        $('#editButton').css('display','none')
+    })
+
+    $("#closeComment<?php echo $pseudo.$id;?>").click(function(){
+        $("#commentBackground<?php echo $pseudo.$id;?>").css('display','none')
+        $('body').css('overflow-y','visible')
+        $('#mainContent').css('position','relative')
+        $('#editButton').css('display','inline')
+    })
+
     $(document).click(function(event) { 
         if(!$(event.target).closest('#<?php echo $id.$pseudo; ?>').length) {
             $('#command<?php echo $id.$pseudo; ?>').css('display','none')
         } 
     });
+
+    function AnswerButtonComment<?php echo $pseudo.$id;?>(){
+    if($('#Answer<?php echo $pseudo.$id ?>').val() != ''){
+        $('#answerButton<?php echo $pseudo.$id ?>').css('opacity','1')
+    }else{
+        $('#answerButton<?php echo $pseudo.$id ?>').css('opacity','0.6')
+    }
+
+    $('#answerButton<?php echo $pseudo.$id ?>').click(function(){
+        if($('#Answer<?php echo $pseudo.$id ?>').val() != ''){
+            console.log('function running')
+            $.ajax({
+                type:"POST",
+            url:"../php/writeACommentOnAPost.php",
+            data:{
+                PostUser:'<?php echo $pseudo ?>',
+                ID_Post:'<?php echo $id?>',
+                Message: $('#Answer<?php echo $pseudo.$id ?>').val(),
+                Author: "<?php echo $_SESSION['Pseudo'] ?>"
+            },
+            success: function(output){
+                document.getElementById('tweet').insertAdjacentHTML('afterbegin',output)
+                $("#commentBackground<?php echo $pseudo.$id;?>").css('display','none')
+                $('body').css('overflow-y','visible')
+                $('#mainContent').css('position','relative')
+                $('#editButton').css('display','inline')
+            }
+            })
+        }
+    })
+}
 </script>
