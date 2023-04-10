@@ -213,12 +213,6 @@
         $smtp->execute();
         return $smtp->fetch()[0];
     }
-    function createANewTweet($pseudo, $message, $object, $creationDate, $ID){
-        require 'ID.php';
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare("INSERT into all_post (pseudo, message, object, creationDate, ID) values ('".$pseudo."','".$message."','".$object."','".$creationDate."','".$ID."')");
-        $smtp->execute();
-    }
     function getTweetData($pseudo, $id){
         require 'ID.php';
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -258,24 +252,6 @@
         }
                
     }
-    function deleteTweet($pseudo, $id){
-        require 'ID.php';
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare("SELECT object from all_post where pseudo = '".$pseudo."' and id = '".$id."'");
-        $smtp->execute();
-        $object = $smtp->fetch()[0];
-        if($object != NULL){
-            unlink($object);
-        }
-        $smtp = $pdo->prepare("DELETE from all_post where pseudo = '".$pseudo."' and id = ".$id."");
-        $smtp->execute();
-        $smtp = $pdo->prepare('DELETE from commentaire where ID_Post = "'.$id.'" and PostUser = "'.$pseudo.'"');
-        $smtp->execute();
-        $smtp =  $pdo->prepare("DELETE from likepost where ID = '".$id."' and Author = '".$pseudo."'");
-        $smtp->execute();
-        $smtp =  $pdo->prepare("DELETE from signet where Author = '".$pseudo."' and ID = '".$id."'");
-        $smtp->execute();
-    }
     function getPostTableData(){
         require 'ID.php';
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -295,28 +271,6 @@
                 }
             }
         }
-    }
-    function follow($follower, $followed){
-        require 'ID.php';
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare("INSERT into follow (follower, followed) values ('".$follower."','".$followed."')");
-        $smtp->execute();
-    }
-    function unfollow($follower, $followed){
-        require 'ID.php';
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare("DELETE from follow where follower = :follower and followed = :followed");
-        $smtp->bindParam(":follower",$follower);
-        $smtp->bindParam(":followed",$followed);
-        $smtp->execute();
-    }
-    function block($blocker , $blocked){
-        require 'ID.php';
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare('INSERT into block (blocker, blocked) values (:blocker , :blocked)');
-        $smtp->bindParam(':blocker',$blocker);
-        $smtp->bindParam(':blocked', $blocked);
-        $smtp->execute();
     }
     function getTweetNumber($pseudo){
         require 'ID.php';
@@ -401,9 +355,12 @@
         require 'ID.php';
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         $numberOfTweet = getTweetNumber($pseudo);
+        $smtp = $pdo->prepare("SELECT ID from all_post where pseudo = '".$pseudo."' order by CreationDate DESC");
+        $smtp->execute();
+        $array = $smtp->fetchAll();
         for($i = 1;$i <= $numberOfTweet; $i++){
             $isFollowing = isFollowing($_SESSION['Pseudo'], $pseudo);
-            displayTweet($pseudo, getAllTweetIDofAUser($pseudo)[$i-1][0], $isFollowing);
+            displayTweet($pseudo, $array[$i-1][0], $isFollowing);
         }
     }
     function isInSignet($user, $Author, $id){
@@ -416,30 +373,6 @@
         $smtp->execute();
         $final = $smtp->fetch();
         return $final;
-    }
-    function addSignets($user, $Author, $id){
-        require 'ID.php';
-        if(isInSignet($user,$Author,$id) == false){
-            $date = date('d-m-y h:i:s');
-            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            $smtp = $pdo->prepare("INSERT into signet (User,Author,ID,Date) values (:user, :author, :ID, :date)");
-            $smtp->bindParam(':user', $user);
-            $smtp->bindParam(':author',$Author);
-            $smtp->bindParam(':ID',$id);
-            $smtp->bindParam(':date',$date);
-            $smtp->execute();
-        }
-    }
-    function deleteFromSignets($user, $Author, $id){
-        require 'ID.php';
-        if(isInSignet($user,$Author,$id)){
-            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            $smtp = $pdo->prepare("DELETE from signet where User = :user and Author = :Author and ID = :ID");
-            $smtp->bindParam(':user',$user);
-            $smtp->bindParam(':Author',$Author);
-            $smtp->bindParam(':ID',$id);
-            $smtp->execute();
-        }
     }
     function getAllSignetsTweet($pseudo){
         require 'ID.php';
@@ -462,25 +395,6 @@
         $smtp->bindParam(':ID',$id);
         $smtp->execute();
         return $smtp->fetch();
-    }
-    function addLike($user, $Author, $id){
-        require 'ID.php';
-        $date = date('d-m-y h:i:s');
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare('INSERT into likepost (User, Author, ID, date) values (:user,:author,:ID, :date)');
-        $smtp->bindParam(':user',$user);
-        $smtp->bindParam(':author',$Author);
-        $smtp->bindParam(':ID',$id);
-        $smtp->bindParam(':date', $date);
-        $smtp->execute();
-        return 'added';
-    }
-    function removeLike($user, $Author, $id){
-        require 'ID.php';
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare('DELETE from likepost where User = "'.$user.'" and Author = "'.$Author.'" and ID = "'.$id.'"');
-        $smtp->execute();
-        return 'removed';
     }
     function getNumberOfLike($Author, $id){
         require 'ID.php';
@@ -505,12 +419,6 @@
             return 1;
         }
         return $smtp->fetchAll()[0][0] +1;
-    }
-    function writeACommentonAPost($message, $Author, $PostUser, $ID_POST, $ID_Comment){
-        require 'ID.php';
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare("INSERT into commentaire (Message, Author, PostUser, ID_Post, ID_Comment, IsComment, ID_OfTheComment) values ('".$message."','".$Author."','".$PostUser."',".$ID_POST.",".$ID_Comment.",false, null)");
-        $smtp->execute();
     }
     function isTweetExisting($PostUser,$ID_POST,$ID_Comment){
         require 'ID.php';

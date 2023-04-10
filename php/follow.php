@@ -1,4 +1,10 @@
 <?php
+    function follow($follower, $followed){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare("INSERT into follow (follower, followed) values ('".$follower."','".$followed."')");
+        $smtp->execute();
+    }
     error_reporting(1);
     if(!isset($_SESSION)){
         session_start();
