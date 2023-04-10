@@ -261,9 +261,7 @@
     function deleteTweet($pseudo, $id){
         require 'ID.php';
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare("SELECT object from all_post where pseudo = :pseudo and id = :id");
-        $smtp->bindParam(':pseudo',$pseudo);
-        $smtp->bindParam(':id',$id);
+        $smtp = $pdo->prepare("SELECT object from all_post where pseudo = '".$pseudo."' and id = '".$id."'");
         $smtp->execute();
         $object = $smtp->fetch()[0];
         if($object != NULL){
@@ -271,11 +269,17 @@
         }
         $smtp = $pdo->prepare("DELETE from all_post where pseudo = '".$pseudo."' and id = ".$id."");
         $smtp->execute();
+        $smtp = $pdo->prepare('DELETE from commentaire where ID_Post = "'.$id.'" and PostUser = "'.$pseudo.'"');
+        $smtp->execute();
+        $smtp =  $pdo->prepare("DELETE from likepost where ID = '".$id."' and Author = '".$pseudo."'");
+        $smtp->execute();
+        $smtp =  $pdo->prepare("DELETE from signet where Author = '".$pseudo."' and ID = '".$id."'");
+        $smtp->execute();
     }
     function getPostTableData(){
         require 'ID.php';
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $smtp = $pdo->prepare("SELECT * from `all_post` order by `all_post`.`creationdate` , `all_post`.`ID` ");
+        $smtp = $pdo->prepare("SELECT * from `all_post` order by creationdate DESC , ID asc");
         $smtp->execute();
         $array = $smtp->fetchAll();
         $numberOfLine =  count($array);
@@ -396,10 +400,10 @@
     function displayUserTweet($pseudo){
         require 'ID.php';
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $numberOfTweet = getCurrentId($pseudo);
+        $numberOfTweet = getTweetNumber($pseudo);
         for($i = 1;$i <= $numberOfTweet; $i++){
             $isFollowing = isFollowing($_SESSION['Pseudo'], $pseudo);
-            displayTweet($pseudo, $i, $isFollowing);
+            displayTweet($pseudo, getAllTweetIDofAUser($pseudo)[$i-1][0], $isFollowing);
         }
     }
     function isInSignet($user, $Author, $id){
@@ -555,5 +559,12 @@
                 }
             }
         }
+    }
+    function getAllTweetIDofAUser($pseudo){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare("SELECT ID from all_post where Pseudo = '".$pseudo."'");
+        $smtp->execute();
+        return $smtp->fetchAll();
     }
 ?>
