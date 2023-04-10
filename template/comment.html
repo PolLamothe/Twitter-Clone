@@ -1,0 +1,16 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<div style="position: relative;overflow: hidden;" id=<?php echo $id.$pseudo; ?>>
+    <input type="hidden" value="<?php echo $id; ?>" id="id">
+    <div style="display: flex;position: relative;">
+        <img src=<?php if($profilePicture == ""){echo "./data/image/profile_Picture/default.webp";}else{echo $profilePicture;} ?> id='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $pseudo ?>">
+        <p id="user"><?php echo $pseudo;?></p>
+    </div>
+    <p id="message"><?php echo $message;?></p>
+    <div class="hr"></div>
+</div>
+<style>
+    #message{
+        margin-left: 5vw;  
+        margin-top: -2.5vh; 
+    }
+</style>

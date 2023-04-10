@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Twitter</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://kit.fontawesome.com/ecca3bec75.js" crossorigin="anonymous"></script>   
+    <link href="../css/mutual.css" rel="stylesheet" >
+    <link href="../css/post.css" rel="stylesheet" >
+</head>
+<body bgcolor="black">
+    <?php require 'navside.html';?>
+    <div id="mainContent">
+        <img src="../data/svg/arrow.webp" id="backArrow" onclick="window.history.back()">
+        <h1 id="Title">Tweet</h1>
+        <div id="TweetContent">
+            <?php echo displayTweet($pseudo, $id,true , $source="") ?>
+        </div>
+        <div>
+            <?php echo getCommentaireTableData($pseudo, $id); ?>
+        </div>
+    </div>
+    <?php require 'rightSide.html';?>
+</body>
+</html>

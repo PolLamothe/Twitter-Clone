@@ -14,7 +14,7 @@
     <?php require 'navside.html';?>
     <div id="mainContent">
         <div id="header">
-            <img src="../data/svg/arrow.webp" id="backArrow" onclick=document.location.href="Accueil.php">
+            <img src="../data/svg/arrow.webp" id="backArrow" onclick=window.history.back()>
             <p id="AccueilText"><?php echo $pseudo ?></p>
             <p id="tweetNumber"><?php echo getTweetNumber($pseudo)?> tweets</p>
         </div>
@@ -42,8 +42,8 @@
                 </div>
             </div>
         </div>';}else{
-            $displayFollow = '';
-            $displayUnFollow = '';
+            $displayFollow = 'inline';
+            $displayUnFollow = 'inline';
             if(isFollowing($_SESSION['Pseudo'],$pseudo)){
                 $displayFollow = 'none';
             }else{

@@ -29,14 +29,6 @@
              return '<div class="sorry">
             <p>Désolé mais votre mot de passe doit contenir au moins 9 caractères</p>
             </div>';
-        }elseif(ctype_lower($element) == true){
-             return '<div class="sorry">
-            <p>Désolé mais votre mot de passe doit contenir au moins une majuscule</p>
-            </div>';
-        }elseif(preg_match("/([^A-Za-z\s])/",$element,) == false){
-            return '<div class="sorry">
-            <p>Désolé mais votre mot de passe doit contenir au moins un caractère spéciale</p>
-            </div>';
         }else{
             return true;
         }
@@ -250,8 +242,7 @@
             include("../template/tweet.html");
         }else{
             require("./template/tweet.html");
-        }
-        
+        }  
     }
     function getCurrentId($pseudo){
         require 'ID.php';
@@ -523,5 +514,46 @@
         $smtp = $pdo->prepare('SELECT * from commentaire where PostUser = "'.$PostUser.'" and ID_Post = "'.$ID_POST.'"and ID_Comment = "'.$ID_Comment.'"');
         $smtp->execute();
         return $smtp->fetch();
+    }
+    function getCommentDataOnAPost($PostUser, $ID_Post, $ID_Comment){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare("SELECT * from commentaire where PostUser = :PostUser and ID_Post = :ID_Post and ID_Comment = '".$ID_Comment."' and IsComment = 0");
+        $smtp->bindParam(':PostUser',$PostUser);
+        $smtp->bindParam(':ID_Post',$ID_Post);
+        $smtp->execute();
+        $smtp = $smtp->fetch();
+        $data = array($smtp[0], $smtp[1]);
+        return $data;
+    }
+    function displayComment($user, $id,$ID_Comment,$isFollowing, $source=""){
+        $data = getCommentDataOnAPost($user, $id,$ID_Comment);
+        $isFollowing = $isFollowing;
+        $pseudo = $data[1];
+        $message = $data[0];
+        $object = null;
+        $creationDate = '';
+        $profilePicture = getProfilePicture($pseudo);
+        if($source == 'createTweet.php'){
+            include("../template/comment.html");
+        }else{
+            require("./template/comment.html");
+        }  
+    }
+    function getCommentaireTableData($PostUser, $ID_Post){
+        require 'ID.php';
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $smtp = $pdo->prepare("SELECT * from commentaire where PostUser = '".$PostUser."' and ID_Post = '".$ID_Post."' and IsComment = 0");
+        $smtp->execute();
+        $array = $smtp->fetchAll();
+        $numberOfLine =  count($array);
+        for($i = 0; $i < $numberOfLine;$i++){
+            if(gettype(isUserBlocked($_SESSION['Pseudo'],$pseudo)) == 'boolean'){
+                if(isUserBlocked($_SESSION['Pseudo'],$pseudo) == false){
+                    $ID_Comment = $array[$i][4];
+                    displayComment($PostUser,$ID_Post,$ID_Comment, true);
+                }
+            }
+        }
     }
 ?>
