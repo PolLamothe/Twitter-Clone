@@ -45,12 +45,12 @@ transform: translate(0%,-60%)!important;
 #banner{
     margin-top: -2vh;
     height: 28vh;
-    width: 50vw;
+    width: 100%;
     object-fit: cover;
 }
 #profile_picture{
     border-radius: 50%;
-    width: 8vw;
+    width: 16%;
     aspect-ratio: 1/1;
     object-fit: cover;
     margin-left: 2vw;

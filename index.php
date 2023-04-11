@@ -7,9 +7,9 @@
                 if(!isset($_SESSION)){
                     session_start();
                 }
-                setcookie('cookieChoice','accepted');
-                setcookie('Pseudo',$_SESSION['Pseudo']);
-                setcookie('Password',$_SESSION['Password']);
+                setcookie('cookieChoice','accepted',time() + (10 * 365 * 24 * 60 * 60));
+                setcookie('Pseudo',$_SESSION['Pseudo'],time() + (10 * 365 * 24 * 60 * 60));
+                setcookie('Password',$_SESSION['Password'],time() + (10 * 365 * 24 * 60 * 60));
                 echo '<script> document.location.href="Accueil.php"; </script>';
             }else{
                 echo '<script> document.location.href="Accueil.php"; </script>';

@@ -1,0 +1,84 @@
+@media (max-width: 640px) {
+    .navSide div i {
+        display: none;
+    }
+    .navSide div div i {
+        display: inline;
+        font-size: 15px;
+    }
+    .navSide div div p {
+        display: none;
+    }
+    .navSide{
+        min-width: 0px!important;
+        width: 0vw;
+        margin-top: 99vh!important;
+        height: min-content;
+        transform: translate(0%,-100%)
+    }
+    .navSide div{
+        display: flex;
+        height: min-content;
+        position: sticky;
+    }
+    .verticale2{
+        display: none;
+    }
+    #verticale1{
+        display: none;
+    }
+    #mainContent{
+        width: 100vw!important;
+    }
+    .mainContent{
+        width: 100vw!important;
+    }
+    #tweet{
+        width: 100%;
+    }
+    .interactButton{
+        width: 20px!important;
+        margin-right: 5px!important;
+    }
+    #profilePicture{
+        width: 9vw;
+        height: 9vw;
+    }
+    .profilePicture{
+        width: 9vw;
+        height: 9vw;
+    }
+    #banner{
+        height: 20vh;
+    }
+    #backArrow{
+        width: 5vw;
+    }
+    .hr{
+        width: 100vw!important;
+        margin-top: 0vh!important;
+    }
+    #TweetButton{
+        width: 22vw;
+    }
+    #user{
+        margin-left: 10px;
+    }
+    #creationDate{
+        margin-left: 10px;
+    }
+    .allInteract{
+        margin-top: 0px!important;
+    }
+    .message{
+        margin-top: -5px!important;
+        margin-left: 50px!important;
+    }
+    #tweetText{
+        height: 5vh!important;
+        width: 80%!important;
+    }
+    #userName{
+        margin-bottom: -1vh;
+    }
+}
