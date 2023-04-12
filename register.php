@@ -76,7 +76,9 @@
     <meta charset="UTF-8">
     <link href='./css/register.css' rel="stylesheet">
     <link href="./css/mutual.css" rel="stylesheet">
+    <link href="./css/mobile.css" rel="stylesheet">
     <title>Rejoignez Twitter</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <script src="https://kit.fontawesome.com/ecca3bec75.js" crossorigin="anonymous"></script>
 </head>
 

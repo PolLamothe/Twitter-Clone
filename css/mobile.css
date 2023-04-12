@@ -12,9 +12,10 @@
     .navSide{
         min-width: 0px!important;
         width: 0vw;
-        margin-top: 99vh!important;
+        bottom: 1vh!important;
         height: min-content;
-        transform: translate(0%,-100%)
+        position: fixed;
+        top:unset;
     }
     .navSide div{
         display: flex;
@@ -80,5 +81,32 @@
     }
     #userName{
         margin-bottom: -1vh;
+    }
+    .tweetBackgroundComment{
+        width: 80vw;
+    }
+    .tweetYourAnswer{
+        margin-left: 12vw;
+    }
+    .answerButton{
+        width: 30vw;
+        margin-bottom: 1vh;
+    }
+    .tweetData{
+        margin-top: 3vh!important;
+    }
+    .block{
+        width: 80vw!important;
+        padding: 5vw;
+    }
+    .forget_password{
+        width: max-content;
+    }
+    .send{
+        width: max-content;
+    }
+    .background div{
+        width: 80vw;
+        height: fit-content;
     }
 }

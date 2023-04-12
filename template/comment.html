@@ -5,7 +5,7 @@
         <img src=<?php if($profilePicture == ""){echo "./data/image/profile_Picture/default.webp";}else{echo $profilePicture;} ?> id='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $pseudo ?>">
         <p id="user"><?php echo $pseudo;?></p>
     </div>
-    <p id="message"><?php echo $message;?></p>
+    <p id="message" class="message"><?php echo $message;?></p>
     <div class="hr"></div>
 </div>
 <style>

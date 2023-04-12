@@ -77,33 +77,7 @@
                 echo '<script> document.location.href="Accueil.php"; </script>';
             }
         }
-    }                                                   
+    }     
+    require './template/index.html';                                              
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link href="./css/connect.css" rel="stylesheet">
-        <link href="./css/mutual.css" rel="stylesheet">
-        <title>Se connecter à Twitter</title>
-        <script src="https://kit.fontawesome.com/ecca3bec75.js" crossorigin="anonymous"></script>
-    </head>
-    <body bgcolor="#404040">
-        <div class="block" id="block">
-            <i class="fa-solid fa-x fa-xl close" style="color: white;"></i>
-            <i class="fa-brands fa-twitter fa-4x bird" style="color: white;" id='twitterBird'></i>
-            <p class="textConnect">Connectez-vous à Twitter</p>
-            <form method='post' action=''>
-                <input type="text" name="email" placeholder="Addresse email ou Pseudo" class="ID" required><br>
-                <input type='password' name='password' placeholder="Mot De Passe" class='password' required>
-                <input type="submit" name="submit" value="Se Connecter" class="send">
-            </form>
-            <button class="forget_password">Mot de passe oublié ?</button>
-            <p class="register1">Vous n'avez pas de compte ? <a style="color: rgb(120, 120, 216);" href='./register.php'>Inscrivez-vous</a></p>
-        </div>
 
-        <?php echo $alert ?>
-
-        <script src="./js/position.js"></script>
-    </body>
-</html> 
