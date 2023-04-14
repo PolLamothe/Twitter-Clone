@@ -101,7 +101,7 @@
 
             $mail->send();
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "<script>Alert(Le mail n'a pas pu être envoyé. Erreur: {$mail->ErrorInfo})</script>";
         }
     }
     function addEmailCode($code, $email){

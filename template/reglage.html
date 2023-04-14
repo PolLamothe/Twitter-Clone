@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Réglage</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://kit.fontawesome.com/ecca3bec75.js" crossorigin="anonymous"></script>   
+    <link href="../css/mutual.css" rel="stylesheet" >
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/reglage.css'>
+</head>
+<body bgcolor="black">
+    <?php require 'navside.html'; ?>
+    <div id="mainContent">
+        <button id="deconnect">Me déconnecter</button>
+        <button id="delete">Supprimer mon compte</button>
+    </div>
+    <?php require 'rightSide.html'; ?>
+</body>
+</html>
+<script>
+    $('#delete').click(function(){
+        $.ajax({
+            type:'POST',
+            url:'../php/deleteUser.php',
+            success: function(){
+                window.location.href = '../index.php'
+            }
+        })
+    })
+    $('#deconnect').click(function(){
+        $.ajax({
+            type:'POST',
+            url:'../php/disconnect.php',
+            success: function(output){
+                console.log(output)
+                window.location.href = '../index.php'
+            }
+        })
+    })
+</script>

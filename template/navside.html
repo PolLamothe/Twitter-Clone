@@ -26,7 +26,7 @@
             <i class="fa-regular fa-user fa-2x" id="profileIcon"></i>
             <p>Profile</p>
         </div>
-        <div class="navButton">
+        <div class="navButton" onclick="redirect('reglage')">
             <i class="fa-solid fa-gear fa-2x "></i>
             <p>Réglage</p>
         </div> 
@@ -45,6 +45,9 @@
     .navSide{
         min-width:  243px;
     }
+    .navSideCommand{
+        display: none;
+    }
 </style>
 <script>
     function redirect(page){
@@ -54,6 +57,8 @@
             window.location.href = 'Accueil.php'
         }else if(page == 'signets'){
             window.location.href = 'signets.php'
+        } else if(page == 'reglage'){
+            window.location.href = 'reglage.php'
         }
     }
 </script>

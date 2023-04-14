@@ -1,0 +1,26 @@
+@font-face {
+    font-family: Inter;
+    src: url('./police/Inter/Inter-VariableFont_slnt\,wght.ttf');
+}
+#mainContent{
+    width: 50vw;
+    overflow: hidden;
+    position: relative;
+}
+body{
+    overflow-x: hidden;
+}
+.navSide div div p{
+    transform: translate(0%,-60%)!important;
+}
+#mainContent button{
+    width: 100%;
+    height: 6vh;
+    color: red;
+    background-color: transparent;
+    border: none;
+}
+#mainContent button:hover{
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.1);
+}

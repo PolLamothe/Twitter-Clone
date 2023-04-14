@@ -1,5 +1,6 @@
 <?php
     require './php/function.php';
+    error_reporting(0);
     $alert = '';
     if($_POST){
         if(isset($_POST['cookieChoice']) || isset($_COOKIE['Pseudo'])){

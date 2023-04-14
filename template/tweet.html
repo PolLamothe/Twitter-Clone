@@ -2,7 +2,7 @@
 <div style="position: relative;overflow: hidden;" id=<?php echo $id.$pseudo; ?>>
     <input type="hidden" value="<?php echo $id; ?>" id="id">
     <div style="display: flex;position: relative;">
-        <img src=<?php if($profilePicture == ""){echo "./data/image/profile_Picture/default.webp";}else{echo $profilePicture;} ?> id='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $pseudo ?>">
+        <img src=<?php if($profilePicture == ""){echo "../data/image/profile_picture/default.webp";}else{echo $profilePicture;} ?> id='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $pseudo ?>">
         <p id="user"><?php echo $pseudo;?></p>
         <p id="creationDate"><?php echo $creationDate; ?></p>
     </div>
@@ -30,13 +30,13 @@
         <i class="fa-solid fa-x fa-xl close" style= "color: white;margin-top: 2vh;margin-left: 1vw;" id="closeComment<?php echo $pseudo.$id;?>"></i>
         <input type="hidden" value="<?php echo $id; ?>" id="id">
         <div style="display: flex;position: relative;margin-top: 5vh;" class="tweetData">
-            <img src=<?php if($profilePicture == ""){echo "./data/image/profile_Picture/default.webp";}else{echo $profilePicture;} ?> id='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $pseudo ?>">
+            <img src=<?php if($profilePicture == ""){echo "../data/image/profile_picture/default.webp";}else{echo $profilePicture;} ?> id='profilePicture' onclick=document.location.href="profile.php?user=<?php echo $pseudo ?>">
             <p id="user"><?php echo $pseudo;?></p>
             <p id="creationDate"><?php echo $creationDate; ?></p>
         </div>
         <p id="message<?php echo $pseudo.$id ?>" class="message"><?php echo $message;?></p>
         <img <?php if($object != ""){echo "src=".$object;}?> id="object">
-        <img src="<?php if(getProfilePicture($_SESSION['Pseudo']) == null){echo './data/image/profile_picture/default.webp';}
+        <img src="<?php if(getProfilePicture($_SESSION['Pseudo']) == null){echo '../data/image/profile_picture/default.webp';}
         else{echo getProfilePicture($_SESSION['Pseudo']);};?>" id="profilePicture" style="left: 1vw;position: absolute;">
         <textarea class="tweetYourAnswer" placeholder="Tweetez votre réponse." id="Answer<?php echo $pseudo.$id ?>" oninput="AnswerButtonComment<?php echo $pseudo.$id;?>()"></textarea>
         <button class="answerButton" id="answerButton<?php echo $pseudo.$id ?>">Répondre</button>
